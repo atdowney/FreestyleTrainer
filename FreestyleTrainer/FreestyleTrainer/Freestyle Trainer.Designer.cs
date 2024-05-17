@@ -62,6 +62,7 @@
             this._WordTbx.Name = "_WordTbx";
             this._WordTbx.Size = new System.Drawing.Size(215, 20);
             this._WordTbx.TabIndex = 2;
+            this._WordTbx.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // _WordLbl
             // 
@@ -87,6 +88,7 @@
             this._RhymesListbx.Location = new System.Drawing.Point(18, 140);
             this._RhymesListbx.Name = "_RhymesListbx";
             this._RhymesListbx.Size = new System.Drawing.Size(215, 290);
+            this._RhymesListbx.Sorted = true;
             this._RhymesListbx.TabIndex = 6;
             // 
             // _RhymesAmount
