@@ -1,4 +1,13 @@
-﻿using System;
+﻿//**********************************************************************************
+//Program: Freestyle Trainer
+//Class: WordFetcher
+//Description:      Used to fetch the desired words rhymes. Also to generate a list from JSON resource.
+//
+//Date Started: May 17 2024
+//Last Updated: May 17 2024
+//Author: Alex Downey
+//**********************************************************************************
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -12,6 +21,7 @@ namespace FreestyleTrainer
 {
     internal class WordFetcher
     {
+        //Used for when deserializing the JSON data 
         public class WordsContainer
         {
             public List<string> Words { get; set; }
@@ -20,6 +30,11 @@ namespace FreestyleTrainer
         private Random random = new Random();
         private static readonly HttpClient client = new HttpClient();
 
+        /// <summary>
+        /// Async method to get all of the rhyming words from b-rhymes website
+        /// </summary>
+        /// <param name="word"></param>
+        /// <returns></returns>
         public async Task<List<string>> GetRhymingWordsAsync(string word)
         {
             List<string> rhymingWords = new List<string>();
@@ -61,6 +76,10 @@ namespace FreestyleTrainer
             return rhymingWords;
         }
 
+        /// <summary>
+        /// Generates a list of strings that is words from a JSON file
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<string> GetWordsFromJson()
         {
             List<string> words = new List<string>();
