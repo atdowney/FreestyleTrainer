@@ -10,10 +10,13 @@ namespace FreestyleTrainer
     public partial class FreestyleTrainer : Form
     {
         private HashSet<string> usedRhymes = new HashSet<string>(); //Used to track all used rhyming words
+        private HashSet<string> usedWords = new HashSet<string>(); //Used to track all used rhyming words
+        private IEnumerator<string> wordsEnumerator;
 
         public FreestyleTrainer()
         {
             InitializeComponent();
+            LoadWords();
 
             _NewWordBtn.Click += _NewWordBtn_Click;
             _NewRhymeBtn.Click += _NewRhymeBtn_Click;
@@ -37,10 +40,36 @@ namespace FreestyleTrainer
             DisplayRhymingWords(rhymingWords);
         }
 
-        private async void _NewWordBtn_Click(object sender, EventArgs e)
+        private void LoadWords()
+        {
+            WordFetcher wordFetcher = new WordFetcher();
+
+            wordsEnumerator = wordFetcher.GetWordsFromJson().GetEnumerator();
+
+        }
+
+        private void _NewWordBtn_Click(object sender, EventArgs e)
         {
             usedRhymes.Clear();
             _RhymesListbx.Items.Clear();
+
+            if(wordsEnumerator.MoveNext())
+            {
+                string word = wordsEnumerator.Current;
+
+                if(!usedWords.Contains(word))
+                {
+                    _WordTbx.Text = word;
+                    usedWords.Add(word);
+                }
+            }
+            //There are no more words left
+            else
+            {
+                MessageBox.Show("No more words available");
+            }
+
+           
 
         }
 
