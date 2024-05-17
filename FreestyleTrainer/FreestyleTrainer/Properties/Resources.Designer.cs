@@ -61,6 +61,16 @@ namespace FreestyleTrainer.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap main_image_star_forming_region_carina_nircam_final_5mb {
+            get {
+                object obj = ResourceManager.GetObject("main_image_star-forming_region_carina_nircam_final-5mb", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to {
         ///  &quot;words&quot;: [
         ///    &quot;Beautiful&quot;,

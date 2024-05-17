@@ -67,18 +67,24 @@
             // _WordLbl
             // 
             this._WordLbl.AutoSize = true;
-            this._WordLbl.Location = new System.Drawing.Point(106, 18);
+            this._WordLbl.BackColor = System.Drawing.Color.Transparent;
+            this._WordLbl.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this._WordLbl.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this._WordLbl.Location = new System.Drawing.Point(103, 11);
             this._WordLbl.Name = "_WordLbl";
-            this._WordLbl.Size = new System.Drawing.Size(33, 13);
+            this._WordLbl.Size = new System.Drawing.Size(49, 20);
             this._WordLbl.TabIndex = 4;
             this._WordLbl.Text = "Word";
             // 
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(88, 124);
+            this.label2.BackColor = System.Drawing.Color.Transparent;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12.25F);
+            this.label2.ForeColor = System.Drawing.SystemColors.ButtonFace;
+            this.label2.Location = new System.Drawing.Point(81, 117);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(64, 13);
+            this.label2.Size = new System.Drawing.Size(103, 20);
             this.label2.TabIndex = 5;
             this.label2.Text = "Rhymes List";
             // 
@@ -109,7 +115,9 @@
             this.AllowDrop = true;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(475, 450);
+            this.BackgroundImage = global::FreestyleTrainer.Properties.Resources.main_image_star_forming_region_carina_nircam_final_5mb;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.ClientSize = new System.Drawing.Size(518, 450);
             this.Controls.Add(this._RhymesAmount);
             this.Controls.Add(this._RhymesListbx);
             this.Controls.Add(this.label2);

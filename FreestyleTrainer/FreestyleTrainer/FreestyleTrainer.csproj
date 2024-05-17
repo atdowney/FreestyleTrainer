@@ -91,5 +91,8 @@
   <ItemGroup>
     <None Include="Resources\words.txt" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\main_image_star-forming_region_carina_nircam_final-5mb.jpg" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
