@@ -9,30 +9,38 @@ namespace FreestyleTrainer
 {
     public partial class FreestyleTrainer : Form
     {
+        private HashSet<string> usedRhymes = new HashSet<string>(); //Used to track all used rhyming words
+
         public FreestyleTrainer()
         {
             InitializeComponent();
 
             _NewWordBtn.Click += _NewWordBtn_Click;
-
             _NewRhymeBtn.Click += _NewRhymeBtn_Click;
-
 
         }
 
         private async void _NewRhymeBtn_Click(object sender, EventArgs e)
         {
+            
             string word = _WordTbx.Text; //Get the word from the text box
 
-            List<string> rhymingWords = new List<string>();
+            List<string> rhymingWords = await GetRhymingWords(word); //Get all words that rhyme
 
-            rhymingWords = await GetRhymingWords(word);
+            //User has requested as many rhymes as are available 
+            if(usedRhymes.Count == rhymingWords.Count)
+            {
+                MessageBox.Show("No more rhymes, please try new word");
+            }
 
+            //Show the user the rhyming words
             DisplayRhymingWords(rhymingWords);
         }
 
         private async void _NewWordBtn_Click(object sender, EventArgs e)
         {
+            usedRhymes.Clear();
+            _RhymesListbx.Items.Clear();
 
         }
 
@@ -50,12 +58,18 @@ namespace FreestyleTrainer
 
             foreach (string rhyme in rhymingWords)
             {
-                _RhymesListbx.Items.Add(rhyme);
-
-                if (_RhymesListbx.Items.Count > _RhymesAmount.Value - 1)
+                if(!usedRhymes.Contains(rhyme))
                 {
-                    break;
+                    _RhymesListbx.Items.Add(rhyme);
+                    usedRhymes.Add(rhyme);
+
+                    if (_RhymesListbx.Items.Count >= _RhymesAmount.Value)
+                    {
+                        break;
+                    }
+
                 }
+                
             }
 
 

@@ -52,5 +52,26 @@ namespace FreestyleTrainer
 
             return rhymingWords;
         }
+
+        public List<string> GetWordsFromJson()
+        {
+            List<string> words = new List<string>();
+
+            try
+            {
+                // Read the JSON content from the resources
+                string jsonContent = Properties.Resources.word;
+
+                // Deserialize the JSON content into a list of strings
+                words = JsonConvert.DeserializeObject<List<string>>(jsonContent);
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions
+                Console.WriteLine($"Error reading words from JSON: {ex.Message}");
+            }
+
+            return words;
+        }
     }
 }
