@@ -1,4 +1,17 @@
-﻿using System;
+﻿//**********************************************************************************
+//Program: Freestyle Trainer
+//Description:      The user can generate random words with a button click.
+//                  They can select how many rhyming words they want and generate a list of those too.
+//
+//                  TODO: Add a way for users to input audio files
+//                        Create a loopable playlist of users audio
+//                        Create a way for users to record themselves
+//
+//Date Started: May 17 2024
+//Last Updated: May 17 2024
+//Author: Alex Downey
+//**********************************************************************************
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -25,7 +38,6 @@ namespace FreestyleTrainer
         private void LoadWords()
         {
             WordFetcher wordFetcher = new WordFetcher();
-
             wordsEnumerator = wordFetcher.GetWordsFromJson().GetEnumerator();
 
         }
@@ -70,6 +82,7 @@ namespace FreestyleTrainer
             //Show the user the rhyming words
             DisplayRhymingWords(rhymingWords);
 
+            //Helper method to get the rhyming words list
             async Task<List<string>> GetRhymingWords(string userWord)
             {
                 WordFetcher wordFetcher = new WordFetcher();
@@ -77,10 +90,10 @@ namespace FreestyleTrainer
                 return await wordFetcher.GetRhymingWordsAsync(userWord);
             }
 
+            //Helper method to display all rhymes in the listbox
             void DisplayRhymingWords(List<string> rhymesList)
             {
                 _RhymesListbx.Items.Clear();
-
 
                 foreach (string rhyme in rhymesList)
                 {
@@ -101,6 +114,6 @@ namespace FreestyleTrainer
         }
 
   
-   
+
     }
 }
