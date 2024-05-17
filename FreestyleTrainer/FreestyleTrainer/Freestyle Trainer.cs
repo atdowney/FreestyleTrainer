@@ -11,7 +11,7 @@ namespace FreestyleTrainer
     {
         private HashSet<string> usedRhymes = new HashSet<string>(); //Used to track all used rhyming words
         private HashSet<string> usedWords = new HashSet<string>(); //Used to track all used rhyming words
-        private IEnumerator<string> wordsEnumerator;
+        private IEnumerator<string> wordsEnumerator; // Used to get words asyncronously from the JSON file
 
         public FreestyleTrainer()
         {
@@ -22,7 +22,38 @@ namespace FreestyleTrainer
             _NewRhymeBtn.Click += _NewRhymeBtn_Click;
 
         }
+        private void LoadWords()
+        {
+            WordFetcher wordFetcher = new WordFetcher();
 
+            wordsEnumerator = wordFetcher.GetWordsFromJson().GetEnumerator();
+
+        }
+
+        //Will get a new word for the user 
+        private void _NewWordBtn_Click(object sender, EventArgs e)
+        {
+            usedRhymes.Clear();
+            _RhymesListbx.Items.Clear();
+
+            if (wordsEnumerator.MoveNext())
+            {
+                string word = wordsEnumerator.Current;
+
+                if (!usedWords.Contains(word))
+                {
+                    _WordTbx.Text = word;
+                    usedWords.Add(word);
+                }
+            }
+            //There are no more words left
+            else
+            {
+                MessageBox.Show("No more words available");
+            }
+        }
+
+        //Will generate rhymes bases on the users selection
         private async void _NewRhymeBtn_Click(object sender, EventArgs e)
         {
             
@@ -38,70 +69,38 @@ namespace FreestyleTrainer
 
             //Show the user the rhyming words
             DisplayRhymingWords(rhymingWords);
-        }
 
-        private void LoadWords()
-        {
-            WordFetcher wordFetcher = new WordFetcher();
-
-            wordsEnumerator = wordFetcher.GetWordsFromJson().GetEnumerator();
-
-        }
-
-        private void _NewWordBtn_Click(object sender, EventArgs e)
-        {
-            usedRhymes.Clear();
-            _RhymesListbx.Items.Clear();
-
-            if(wordsEnumerator.MoveNext())
+            async Task<List<string>> GetRhymingWords(string userWord)
             {
-                string word = wordsEnumerator.Current;
+                WordFetcher wordFetcher = new WordFetcher();
 
-                if(!usedWords.Contains(word))
-                {
-                    _WordTbx.Text = word;
-                    usedWords.Add(word);
-                }
-            }
-            //There are no more words left
-            else
-            {
-                MessageBox.Show("No more words available");
+                return await wordFetcher.GetRhymingWordsAsync(userWord);
             }
 
-           
-
-        }
-
-        private async Task<List<string>> GetRhymingWords(string word)
-        {
-            WordFetcher wordFetcher = new WordFetcher();
-
-            return await wordFetcher.GetRhymingWordsAsync(word);
-        }
-
-        private void DisplayRhymingWords(List<string> rhymingWords)
-        {
-            _RhymesListbx.Items.Clear();
-
-
-            foreach (string rhyme in rhymingWords)
+            void DisplayRhymingWords(List<string> rhymesList)
             {
-                if(!usedRhymes.Contains(rhyme))
-                {
-                    _RhymesListbx.Items.Add(rhyme);
-                    usedRhymes.Add(rhyme);
+                _RhymesListbx.Items.Clear();
 
-                    if (_RhymesListbx.Items.Count >= _RhymesAmount.Value)
+
+                foreach (string rhyme in rhymesList)
+                {
+                    if (!usedRhymes.Contains(rhyme))
                     {
-                        break;
+                        _RhymesListbx.Items.Add(rhyme);
+                        usedRhymes.Add(rhyme);
+
+                        if (_RhymesListbx.Items.Count >= _RhymesAmount.Value)
+                        {
+                            break;
+                        }
+
                     }
 
                 }
-                
             }
-
-
         }
+
+  
+   
     }
 }
